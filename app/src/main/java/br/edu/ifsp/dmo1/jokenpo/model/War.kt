@@ -24,7 +24,7 @@ class War(battles: Int, player1: String, player2: String) {
     fun toBattle(player1Weapon: Weapon, player2Weapon: Weapon): Player? {
         var winner: Player? = null
         if (has_battles()) {
-            if (player1Weapon != player2Weapon) {
+            if (player1Weapon.javaClass != player2Weapon.javaClass) {
                 winner = when {
                     player1Weapon is Rock && player2Weapon is Scissors -> opponent1
                     player1Weapon is Scissors && player2Weapon is Paper -> opponent1

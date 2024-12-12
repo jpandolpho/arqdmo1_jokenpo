@@ -105,7 +105,7 @@ class WarActivity : AppCompatActivity() {
     }
 
     private fun proclaimWinner() {
-        val str = "${war.getWinner().name}${getString(R.string.won_the_match)}"
+        val str = "${war.getWinner().name} ${getString(R.string.won_the_match)}"
         binding.buttonWeapon1.visibility = View.GONE
         binding.buttonWeapon2.visibility = View.GONE
         binding.buttonFight.visibility = View.GONE
