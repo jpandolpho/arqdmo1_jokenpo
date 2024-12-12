@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.ifsp.dmo1.jokenpo.R
 import br.edu.ifsp.dmo1.jokenpo.databinding.ActivitySelectionBinding
 import br.edu.ifsp.dmo1.jokenpo.model.Paper
 import br.edu.ifsp.dmo1.jokenpo.model.Rock
 import br.edu.ifsp.dmo1.jokenpo.model.Scissors
 import br.edu.ifsp.dmo1.jokenpo.model.Weapon
+import kotlin.random.Random
 
 class SelectionActivity : AppCompatActivity(), OnClickListener {
 
@@ -24,15 +26,31 @@ class SelectionActivity : AppCompatActivity(), OnClickListener {
         var name: String? = ""
         val extras = intent.extras
         if (extras != null) {
-            name = extras.getString(Constants.KEY_PLAYER_NUMBER)
+            name = extras.getString(Constants.KEY_PLAYER_NAME)
             number = extras.getInt(Constants.KEY_PLAYER_NUMBER)
         }
 
         actionBar?.hide()
 
+        binding.textviewMessage.text = "$name${getString(R.string.choose_gun_player)}"
+
         binding.buttonPaper.setOnClickListener(this)
         binding.buttonRock.setOnClickListener(this)
         binding.buttonScissors.setOnClickListener(this)
+
+        if (name!!.matches("BOT\\d{1,2}".toRegex())) {
+            generatePick()
+        }
+    }
+
+    private fun generatePick() {
+        val weapon = when (Random.nextInt(3)) {
+            0 -> Paper
+            1 -> Rock
+            2 -> Scissors
+            else -> null
+        }
+        handleResult(weapon)
     }
 
     override fun onClick(v: View) {

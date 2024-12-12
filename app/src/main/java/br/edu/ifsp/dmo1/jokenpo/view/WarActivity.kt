@@ -27,9 +27,41 @@ class WarActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         openBundle()
+        configResultLauncher()
         updateUI()
         configListener()
-        configResultLauncher()
+        checkBots()
+    }
+
+    private fun checkBots() {
+        hideButtons()
+        generateBotPicks()
+        if (war.opponent1.name.matches("BOT\\d{1,2}".toRegex())) {
+            binding.buttonWeapon1.visibility = View.GONE
+            startSelectionActivity(1)
+        }
+        if (war.opponent2.name.matches("BOT\\d{1,2}".toRegex())) {
+            binding.buttonWeapon2.visibility = View.GONE
+            startSelectionActivity(2)
+        }
+    }
+
+    private fun generateBotPicks() {
+        if (war.opponent1.name.matches("BOT\\d{1,2}".toRegex())) {
+            startSelectionActivity(1)
+        }
+        if (war.opponent2.name.matches("BOT\\d{1,2}".toRegex())) {
+            startSelectionActivity(2)
+        }
+    }
+
+    private fun hideButtons() {
+        if (war.opponent1.name.matches("BOT\\d{1,2}".toRegex())) {
+            binding.buttonWeapon1.visibility = View.GONE
+        }
+        if (war.opponent2.name.matches("BOT\\d{1,2}".toRegex())) {
+            binding.buttonWeapon2.visibility = View.GONE
+        }
     }
 
     private fun battle() {
@@ -63,7 +95,7 @@ class WarActivity : AppCompatActivity() {
             }
             Toast.makeText(
                 this,
-                "$name${getString(R.string.choose_gun_player)}",
+                "$name ${getString(R.string.choose_gun)}",
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -127,6 +159,7 @@ class WarActivity : AppCompatActivity() {
     private fun updateScoreBoard() {
         binding.textviewScore1.text = "${war.opponent1.points}"
         binding.textviewScore2.text = "${war.opponent2.points}"
+        generateBotPicks()
     }
 
     private fun updateUI() {
