@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "br.edu.ifsp.dmo1.jokenpo"
-        minSdk = 30
+        minSdk = 33
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
