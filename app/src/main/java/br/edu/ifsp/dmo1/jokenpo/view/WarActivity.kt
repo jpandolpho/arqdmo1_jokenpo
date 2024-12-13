@@ -36,14 +36,6 @@ class WarActivity : AppCompatActivity() {
     private fun checkBots() {
         hideButtons()
         generateBotPicks()
-        if (war.opponent1.name.matches("BOT\\d{1,2}".toRegex())) {
-            binding.buttonWeapon1.visibility = View.GONE
-            startSelectionActivity(1)
-        }
-        if (war.opponent2.name.matches("BOT\\d{1,2}".toRegex())) {
-            binding.buttonWeapon2.visibility = View.GONE
-            startSelectionActivity(2)
-        }
     }
 
     private fun generateBotPicks() {
